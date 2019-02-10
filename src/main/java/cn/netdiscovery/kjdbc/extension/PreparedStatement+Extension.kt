@@ -6,6 +6,8 @@ import java.sql.ResultSet
 /**
  * Created by tony on 2019-01-28.
  */
+operator fun <T> PreparedStatement.set(index: Int, data: T): Unit = this.setObject(index, data)
+
 fun PreparedStatement.setObjects(vararg params: Any?) {
     params.forEachIndexed { index, v ->
         this.setObject(index + 1, v)
@@ -29,12 +31,12 @@ fun PreparedStatement.addBatchItem(vararg params: Any?) {
 
 inline fun <T> PreparedStatement.selectFirst(vararg params: Any?, block: (ResultSet) -> T) =
         this.select(*params).use {
-            it.selectFirst(block)
+            it.selectOne(block)
         }
 
 fun PreparedStatement.selectFirst(vararg params: Any?) =
         this.select(*params).use {
-            it.selectFirst()
+            it.selectOne()
         }
 
 inline fun PreparedStatement.selectEach(vararg params: Any?, block: (ResultSet) -> Unit) =

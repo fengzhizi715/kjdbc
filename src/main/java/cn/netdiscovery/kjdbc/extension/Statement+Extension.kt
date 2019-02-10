@@ -10,20 +10,26 @@ fun Statement.select(sql: String): ResultSet = this.executeQuery(sql)
 
 inline fun <T> Statement.selectFirst(sql: String, block: (ResultSet) -> T) =
         this.select(sql).use {
-            it.selectFirst(block)
+            it.selectOne(block)
         }
 
 fun Statement.selectFirst(sql: String) =
         this.select(sql).use {
-            it.selectFirst()
+            it.selectOne()
         }
 
 
 inline fun Statement.selectEach(sql: String, block: (ResultSet) -> Unit) =
-        this.select(sql).use { it.selectEach(block) }
+        this.select(sql).use {
+            it.selectEach(block)
+        }
 
 inline fun <T> Statement.selectAll(sql: String, block: (ResultSet) -> T): List<T> =
-        this.select(sql).use { it.selectAll(block) }
+        this.select(sql).use {
+            it.selectAll(block)
+        }
 
 fun Statement.selectAll(sql: String): List<List<Any?>> =
-        this.select(sql).use { it.selectAll() }
+        this.select(sql).use {
+            it.selectAll()
+        }

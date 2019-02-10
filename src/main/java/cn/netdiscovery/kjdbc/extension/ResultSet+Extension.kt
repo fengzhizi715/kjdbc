@@ -15,9 +15,9 @@ fun ResultSet.asSequence() = generateSequence {
     else null
 }
 
-inline fun <T> ResultSet.selectFirst(block: (ResultSet) -> T) = if (this.next()) block(this) else null
+inline fun <T> ResultSet.selectOne(block: (ResultSet) -> T) = if (this.next()) block(this) else null
 
-fun ResultSet.selectFirst() = this.selectFirst(ResultSet::toList)
+fun ResultSet.selectOne() = this.selectOne(ResultSet::toList)
 
 inline fun ResultSet.selectEach(block: (ResultSet) -> Unit) {
     while (this.next()) {
