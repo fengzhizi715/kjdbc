@@ -10,7 +10,7 @@ operator fun <T> PreparedStatement.set(index: Int, data: T): Unit = this.setObje
 
 fun PreparedStatement.setObjects(vararg params: Any?) {
     params.forEachIndexed { index, v ->
-        this.setObject(index + 1, v)
+        this[index+1]=v
     }
 }
 
