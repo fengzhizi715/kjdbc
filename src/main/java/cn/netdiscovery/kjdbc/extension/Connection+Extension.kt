@@ -22,24 +22,24 @@ fun Connection.update(sql: String, vararg params: Any?) =
             it.update(*params)
         }
 
-inline fun <T> Connection.selectFirst(sql: String, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectOne(sql: String, block: (ResultSet) -> T) =
         this.useStatement {
-            it.selectFirst(sql, block)
+            it.selectOne(sql, block)
         }
 
-inline fun <T> Connection.selectFirst(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectOne(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
         this.usePreparedStatement(sql) {
-            it.selectFirst(*params, block = block)
+            it.selectOne(*params, block = block)
         }
 
-fun Connection.selectFirst(sql: String) =
+fun Connection.selectOne(sql: String) =
         this.useStatement {
-            it.selectFirst(sql)
+            it.selectOne(sql)
         }
 
-fun Connection.selectFirst(sql: String, vararg params: Any?) =
+fun Connection.selectOne(sql: String, vararg params: Any?) =
         this.usePreparedStatement(sql) {
-            it.selectFirst(*params)
+            it.selectOne(*params)
         }
 
 inline fun Connection.selectEach(sql: String, block: (ResultSet) -> Unit) =

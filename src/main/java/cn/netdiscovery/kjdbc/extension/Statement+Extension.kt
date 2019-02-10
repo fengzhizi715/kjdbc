@@ -8,12 +8,12 @@ import java.sql.Statement
  */
 fun Statement.select(sql: String): ResultSet = this.executeQuery(sql)
 
-inline fun <T> Statement.selectFirst(sql: String, block: (ResultSet) -> T) =
+inline fun <T> Statement.selectOne(sql: String, block: (ResultSet) -> T) =
         this.select(sql).use {
             it.selectOne(block)
         }
 
-fun Statement.selectFirst(sql: String) =
+fun Statement.selectOne(sql: String) =
         this.select(sql).use {
             it.selectOne()
         }

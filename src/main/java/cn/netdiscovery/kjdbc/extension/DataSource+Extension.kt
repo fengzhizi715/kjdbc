@@ -11,14 +11,14 @@ fun DataSource.update(sql: String, vararg params: Any?) =
             it.update(sql, *params)
         }
 
-inline fun <T> DataSource.selectFirst(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> DataSource.selectOne(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
         this.connection.use {
-            it.selectFirst(sql, *params, block = block)
+            it.selectOne(sql, *params, block = block)
         }
 
-fun DataSource.selectFirst(sql: String, vararg params: Any?) =
+fun DataSource.selectOne(sql: String, vararg params: Any?) =
         this.connection.use {
-            it.selectFirst(sql, *params)
+            it.selectOne(sql, *params)
         }
 
 inline fun DataSource.selectEach(sql: String, vararg params: Any?, block: (ResultSet) -> Unit) =

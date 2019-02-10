@@ -29,12 +29,12 @@ fun PreparedStatement.addBatchItem(vararg params: Any?) {
     this.addBatch()
 }
 
-inline fun <T> PreparedStatement.selectFirst(vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> PreparedStatement.selectOne(vararg params: Any?, block: (ResultSet) -> T) =
         this.select(*params).use {
             it.selectOne(block)
         }
 
-fun PreparedStatement.selectFirst(vararg params: Any?) =
+fun PreparedStatement.selectOne(vararg params: Any?) =
         this.select(*params).use {
             it.selectOne()
         }
