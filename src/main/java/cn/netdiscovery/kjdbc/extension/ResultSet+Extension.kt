@@ -5,7 +5,7 @@ import java.sql.ResultSet
 /**
  * Created by tony on 2019-01-28.
  */
-fun ResultSet.toAnyList(): List<Any?> = (1..this.metaData.columnCount)
+fun ResultSet.toList(): List<Any?> = (1..this.metaData.columnCount)
         .map {
             this.getObject(it)
         }
@@ -17,7 +17,7 @@ fun ResultSet.asSequence() = generateSequence {
 
 inline fun <T> ResultSet.selectFirst(block: (ResultSet) -> T) = if (this.next()) block(this) else null
 
-fun ResultSet.selectFirst() = this.selectFirst(ResultSet::toAnyList)
+fun ResultSet.selectFirst() = this.selectFirst(ResultSet::toList)
 
 inline fun ResultSet.selectEach(block: (ResultSet) -> Unit) {
     while (this.next()) {
@@ -33,4 +33,4 @@ inline fun <T> ResultSet.selectAll(block: (ResultSet) -> T): List<T> {
     return list
 }
 
-fun ResultSet.selectAll() = this.selectAll(ResultSet::toAnyList)
+fun ResultSet.selectAll() = this.selectAll(ResultSet::toList)
