@@ -22,12 +22,12 @@ fun Connection.update(sql: String, vararg params: Any?) =
             it.update(*params)
         }
 
-inline fun <T> Connection.selectOne(sql: String, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectOne(sql: String, block: RSFunction<T>) =
         this.useStatement {
             it.selectOne(sql, block)
         }
 
-inline fun <T> Connection.selectOne(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectOne(sql: String, vararg params: Any?, block: RSFunction<T>) =
         this.usePreparedStatement(sql) {
             it.selectOne(*params, block = block)
         }
@@ -52,12 +52,12 @@ inline fun Connection.selectEach(sql: String, vararg params: Any?, block: (Resul
             it.selectEach(*params, block = block)
         }
 
-inline fun <T> Connection.selectAll(sql: String, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectAll(sql: String, block: RSFunction<T>) =
         this.useStatement {
             it.selectAll(sql, block)
         }
 
-inline fun <T> Connection.selectAll(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> Connection.selectAll(sql: String, vararg params: Any?, block: RSFunction<T>) =
         this.usePreparedStatement(sql) {
             it.selectAll(*params, block = block)
         }

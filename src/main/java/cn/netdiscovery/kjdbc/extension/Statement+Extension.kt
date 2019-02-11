@@ -8,7 +8,7 @@ import java.sql.Statement
  */
 fun Statement.select(sql: String): ResultSet = this.executeQuery(sql)
 
-inline fun <T> Statement.selectOne(sql: String, block: (ResultSet) -> T) =
+inline fun <T> Statement.selectOne(sql: String, block: RSFunction<T>) =
         this.select(sql).use {
             it.selectOne(block)
         }
@@ -24,7 +24,7 @@ inline fun Statement.selectEach(sql: String, block: (ResultSet) -> Unit) =
             it.selectEach(block)
         }
 
-inline fun <T> Statement.selectAll(sql: String, block: (ResultSet) -> T): List<T> =
+inline fun <T> Statement.selectAll(sql: String, block: RSFunction<T>): List<T> =
         this.select(sql).use {
             it.selectAll(block)
         }

@@ -29,7 +29,7 @@ fun PreparedStatement.addBatchItem(vararg params: Any?) {
     this.addBatch()
 }
 
-inline fun <T> PreparedStatement.selectOne(vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> PreparedStatement.selectOne(vararg params: Any?, block: RSFunction<T>) =
         this.select(*params).use {
             it.selectOne(block)
         }
@@ -44,7 +44,7 @@ inline fun PreparedStatement.selectEach(vararg params: Any?, block: (ResultSet) 
             it.selectEach(block)
         }
 
-inline fun <T> PreparedStatement.selectAll(vararg params: Any?, block: (ResultSet) -> T): List<T> =
+inline fun <T> PreparedStatement.selectAll(vararg params: Any?, block: RSFunction<T>): List<T> =
         this.select(*params).use {
             it.selectAll(block)
         }

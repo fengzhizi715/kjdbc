@@ -11,7 +11,7 @@ fun DataSource.update(sql: String, vararg params: Any?) =
             it.update(sql, *params)
         }
 
-inline fun <T> DataSource.selectOne(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> DataSource.selectOne(sql: String, vararg params: Any?, block: RSFunction<T>) =
         this.connection.use {
             it.selectOne(sql, *params, block = block)
         }
@@ -26,7 +26,7 @@ inline fun DataSource.selectEach(sql: String, vararg params: Any?, block: (Resul
             it.selectEach(sql, *params, block = block)
         }
 
-inline fun <T> DataSource.selectAll(sql: String, vararg params: Any?, block: (ResultSet) -> T) =
+inline fun <T> DataSource.selectAll(sql: String, vararg params: Any?, block: RSFunction<T>) =
         this.connection.use {
             it.selectAll(sql, *params, block = block)
         }
